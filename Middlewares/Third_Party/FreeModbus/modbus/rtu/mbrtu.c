@@ -301,9 +301,14 @@ xMBRTUTransmitFSM( void )
         /* check if we are finished. */
         if( usSndBufferCount != 0 )
         {
+#if SLAVE_SEND_ALL_BYTES_IN_ONE_CALL > 0
+			xMBPortSerialPutBytes(pucSndBufferCur, usSndBufferCount);
+			usSndBufferCount = 0;
+#else
             xMBPortSerialPutByte( ( CHAR )*pucSndBufferCur );
             pucSndBufferCur++;  /* next byte in sendbuffer. */
             usSndBufferCount--;
+#endif
         }
         else
         {

@@ -57,4 +57,12 @@ typedef int32_t LONG;
 void EnterCriticalSection(void);
 void ExitCriticalSection(void);
 
+void prvvMBMasterUARTTxReadyISR(void);
+void prvvMBMasterUARTRxISR(void);
+void prvvMBMasterUARTRxReceiveCharISR(CHAR data);
+
+void prvvUARTTxReadyISR(void);
+void prvvUARTRxISR(void);
+void prvvUARTRxReceiveCharISR(CHAR data);
+
 #endif

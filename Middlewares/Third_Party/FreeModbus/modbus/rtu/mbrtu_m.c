@@ -317,9 +317,14 @@ xMBMasterRTUTransmitFSM( void )
         /* check if we are finished. */
         if( usMasterSndBufferCount != 0 )
         {
+#if MASTER_SEND_ALL_BYTES_IN_ONE_CALL > 0
+			xMBMasterPortSerialPutBytes(pucMasterSndBufferCur, usMasterSndBufferCount);
+			usMasterSndBufferCount = 0;
+#else
             xMBMasterPortSerialPutByte( ( CHAR )*pucMasterSndBufferCur );
             pucMasterSndBufferCur++;  /* next byte in sendbuffer. */
             usMasterSndBufferCount--;
+#endif
         }
         else
         {
