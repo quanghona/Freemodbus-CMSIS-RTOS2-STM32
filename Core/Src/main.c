@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "user_mb_app.h"
 
 /* USER CODE END Includes */
 
@@ -331,10 +332,12 @@ void StartDefaultTask(void *argument)
 void MBMasterPollTask(void *argument)
 {
   /* USER CODE BEGIN MBMasterPollTask */
+  eMBMasterInit(MB_RTU, 6, 9600, MB_PAR_NONE);
+  eMBMasterEnable();
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    eMBMasterPoll();
   }
   /* USER CODE END MBMasterPollTask */
 }
@@ -349,10 +352,12 @@ void MBMasterPollTask(void *argument)
 void MBSlavePollTask(void *argument)
 {
   /* USER CODE BEGIN MBSlavePollTask */
+  eMBInit(MB_RTU, 0x01, 3, 9600, MB_PAR_NONE);
+  eMBEnable();
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    eMBPoll();
   }
   /* USER CODE END MBSlavePollTask */
 }

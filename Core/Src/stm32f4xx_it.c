@@ -167,7 +167,26 @@ void DebugMon_Handler(void)
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
-
+  if (__HAL_UART_GET_FLAG(&huart3, UART_FLAG_RXNE))
+  {
+    prvvUARTRxReceiveCharISR(huart3.Instance->DR & 0xFF);
+    __HAL_UART_CLEAR_FLAG(&huart3, UART_FLAG_RXNE);
+  }
+  if (__HAL_UART_GET_FLAG(&huart3, UART_FLAG_IDLE))
+  {
+    prvvUARTRxISR();
+    __HAL_UART_CLEAR_IDLEFLAG(&huart3);
+  }
+  if (__HAL_UART_GET_FLAG(&huart3, UART_FLAG_TC))
+  {
+    prvvUARTTxReadyISR();
+    __HAL_UART_CLEAR_FLAG(&huart3, UART_FLAG_TC);
+  }
+  if (__HAL_UART_GET_FLAG(&huart3, UART_FLAG_ORE))
+  {
+    uint16_t pucByte = (uint16_t)((&huart3)->Instance->DR & (uint16_t)0x01FF);
+    __HAL_UART_CLEAR_OREFLAG(&huart3);
+  }
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
@@ -195,7 +214,26 @@ void TIM8_TRG_COM_TIM14_IRQHandler(void)
 void USART6_IRQHandler(void)
 {
   /* USER CODE BEGIN USART6_IRQn 0 */
-
+  if (__HAL_UART_GET_FLAG(&huart6, UART_FLAG_RXNE))
+  {
+    prvvMBMasterUARTRxReceiveCharISR(huart6.Instance->DR & 0xFF);
+    __HAL_UART_CLEAR_FLAG(&huart6, UART_FLAG_RXNE);
+  }
+  if (__HAL_UART_GET_FLAG(&huart6, UART_FLAG_IDLE))
+  {
+    prvvMBMasterUARTRxISR();
+    __HAL_UART_CLEAR_IDLEFLAG(&huart6);
+  }
+  if (__HAL_UART_GET_FLAG(&huart6, UART_FLAG_TC))
+  {
+    prvvMBMasterUARTTxReadyISR();
+    __HAL_UART_CLEAR_FLAG(&huart6, UART_FLAG_TC);
+  }
+  if (__HAL_UART_GET_FLAG(&huart6, UART_FLAG_ORE))
+  {
+    uint16_t pucByte = (uint16_t)((&huart6)->Instance->DR & (uint16_t)0x01FF);
+    __HAL_UART_CLEAR_OREFLAG(&huart6);
+  }
   /* USER CODE END USART6_IRQn 0 */
   HAL_UART_IRQHandler(&huart6);
   /* USER CODE BEGIN USART6_IRQn 1 */
