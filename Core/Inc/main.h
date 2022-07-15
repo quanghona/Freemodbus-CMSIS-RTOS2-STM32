@@ -67,6 +67,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RS485_SLAVE_CTRL_Pin LL_GPIO_PIN_15
+#define RS485_SLAVE_CTRL_GPIO_Port GPIOE
+#define RS485_MASTER_CTRL_Pin LL_GPIO_PIN_8
+#define RS485_MASTER_CTRL_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
