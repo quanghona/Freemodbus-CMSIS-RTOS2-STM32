@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+build/
+.vscode/
+STM32Make.make
+STM32-for-VSCode.config.yaml
+openocd.cfg
