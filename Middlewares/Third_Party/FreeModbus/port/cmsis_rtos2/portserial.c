@@ -10,6 +10,7 @@
 static volatile uint8_t rx_buff[256];
 static int rx_index;
 static int put_index;
+static osThreadId_t receiveDataHandle;
 static osEventFlagsId_t xSerialEventHandle;
 
 extern UART_HandleTypeDef huart3;
@@ -17,8 +18,8 @@ extern UART_HandleTypeDef huart3;
 /* ----------------------- Defines ------------------------------------------*/
 #define EVENT_MBSLAVE_HANDLE_RECEIVED_DATA  0x00000001UL
 #define huart                               huart3
-#define RS485_SLAVE_TX_MODE                 LL_GPIO_SetOutputPin(RS485_OUT_CTRL_GPIO_Port, RS485_OUT_CTRL_Pin)
-#define RS485_SLAVE_RX_MODE                 LL_GPIO_ResetOutputPin(RS485_OUT_CTRL_GPIO_Port, RS485_OUT_CTRL_Pin)
+#define RS485_SLAVE_TX_MODE()               LL_GPIO_SetOutputPin(RS485_SLAVE_CTRL_GPIO_Port, RS485_SLAVE_CTRL_Pin)
+#define RS485_SLAVE_RX_MODE()               LL_GPIO_ResetOutputPin(RS485_SLAVE_CTRL_GPIO_Port, RS485_SLAVE_CTRL_Pin)
 
 /* ----------------------- static functions ---------------------------------*/
 static void handleReceivedDataTask(void *argument);
@@ -71,12 +72,12 @@ void vMBPortSerialEnable(BOOL xRxEnable, BOOL xTxEnable)
     if (xRxEnable)
     {
         /* switch 485 to receive mode */
-        RS485_SLAVE_RX_MODE;
+        RS485_SLAVE_RX_MODE();
     }
     else
     {
         /* switch 485 to transmit mode */
-        RS485_SLAVE_TX_MODE;
+        RS485_SLAVE_TX_MODE();
     }
     if (xTxEnable)
     {

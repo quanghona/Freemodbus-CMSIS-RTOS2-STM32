@@ -40,8 +40,8 @@ extern UART_HandleTypeDef huart6;
 /* ----------------------- Defines ------------------------------------------*/
 #define EVENT_MBMASTER_HANDLE_RECEIVED_DATA     0x00000001UL
 #define huart                                   huart6
-#define RS485_MASTER_TX_MODE                        LL_GPIO_SetOutputPin(RS485_IN_CTRL_GPIO_Port, RS485_IN_CTRL_Pin)
-#define RS485_MASTER_RX_MODE                        LL_GPIO_ResetOutputPin(RS485_IN_CTRL_GPIO_Port, RS485_IN_CTRL_Pin)
+#define RS485_MASTER_TX_MODE()                  LL_GPIO_SetOutputPin(RS485_MASTER_CTRL_GPIO_Port, RS485_MASTER_CTRL_Pin)
+#define RS485_MASTER_RX_MODE()                  LL_GPIO_ResetOutputPin(RS485_MASTER_CTRL_GPIO_Port, RS485_MASTER_CTRL_Pin)
 
 /* ----------------------- static functions ---------------------------------*/
 static void handleReceivedDataTask(void *argument);
@@ -94,12 +94,12 @@ void vMBMasterPortSerialEnable(BOOL xRxEnable, BOOL xTxEnable)
     if (xRxEnable)
     {
         /* switch 485 to receive mode */
-        RS485_MASTER_RX_MODE;
+        RS485_MASTER_RX_MODE();
     }
     else
     {
         /* switch 485 to transmit mode */
-        RS485_MASTER_TX_MODE;
+        RS485_MASTER_TX_MODE();
     }
     if (xTxEnable)
     {
