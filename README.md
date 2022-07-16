@@ -16,7 +16,7 @@ A port of Freemodbus for CMSIS-RTOS2
 | [chibi-modbus-master](https://github.com/AndruPol/chibi-modbus-master)                           | AndruPol         | chibiOS    | A ChibiOS port                                                |
 | [freemodbus_master_slave](https://github.com/connictro/freemodbus_master_slave)                  | connictro        | ESP32 RTOS | A FreeRTOS port for ESP32                                     |
 
-* For other ports, [#freemodbus](https://github.com/topics/freemodbus) topic or [instant search](https://github.com/search?q=freemodbus) on github. Some may lacks of support for master mode.
+* For other ports, please see [#freemodbus](https://github.com/topics/freemodbus) topic or [instant search](https://github.com/search?q=freemodbus) on github. Some may lacks of support for master mode.
 
 ## Rules
 This port is base on some rules:
