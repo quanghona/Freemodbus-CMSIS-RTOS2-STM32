@@ -1,5 +1,5 @@
 /*
- * FreeModbus Libary: RT-Thread Port
+ * FreeModbus Libary: CMSIS-RTOS2 Port
  * Copyright (C) 2013 Armink <armink.ztl@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * File: $Id: portserial_m.c,v 1.60 2013/08/13 15:07:05 Armink add Master Functions $
+ *            portserial_m.c,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> CMSIS-RTOS2 port $
  */
 
 #include "port.h"
@@ -127,6 +128,9 @@ BOOL xMBMasterPortSerialPutByte(CHAR ucByte)
     return TRUE;
 }
 
+/*
+ * A Function to send all bytes in one call.
+ */
 BOOL xMBMasterPortSerialPutBytes(volatile UCHAR *ucByte, USHORT usSize)
 {
 	HAL_UART_Transmit_IT(&huart, (uint8_t *)ucByte, usSize);
@@ -157,17 +161,30 @@ void prvvMBMasterUARTTxReadyISR(void)
  * processor. This function should then call pxMBFrameCBByteReceived( ). The
  * protocol stack will then call xMBPortSerialGetByte( ) to retrieve the
  * character.
+ *
+ * quanghona: This function is called when IDLE is detected. thus will then
+ * trigger the received message handler.
  */
 void prvvMBMasterUARTRxISR(void)
 {
     osEventFlagsSet(xSerialEventHandle, EVENT_MBMASTER_HANDLE_RECEIVED_DATA);
 }
 
+/*
+ * Create an interrupt handler for the receive character for your target processor.
+ * This function should store data to a buffer for received message thread to
+ * handle later.
+ */
 void prvvMBMasterUARTRxReceiveCharISR(CHAR data)
 {
     rx_buff[put_index++] = data;
 }
 
+/*
+ * A thread to handle the received message.
+ * This thread is wait until a received message flag is set, then it will call
+ * pxMBFrameCBByteReceived() until all characters in the receive buffer is handled.
+ */
 static void handleReceivedDataTask(void *argument)
 {
     while (1)

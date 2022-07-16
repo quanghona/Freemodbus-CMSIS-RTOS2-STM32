@@ -105,6 +105,9 @@ BOOL xMBPortSerialPutByte(CHAR ucByte)
     return TRUE;
 }
 
+/*
+ * A Function to send all bytes in one call.
+ */
 BOOL xMBPortSerialPutBytes(volatile UCHAR *ucByte, USHORT usSize)
 {
 	HAL_UART_Transmit_IT(&huart, (uint8_t *)ucByte, usSize);
@@ -135,17 +138,30 @@ void prvvUARTTxReadyISR(void)
  * processor. This function should then call pxMBFrameCBByteReceived( ). The
  * protocol stack will then call xMBPortSerialGetByte( ) to retrieve the
  * character.
+ *
+ * quanghona: This function is called when IDLE is detected. thus will then
+ * trigger the received message handler.
  */
 void prvvUARTRxISR(void)
 {
     osEventFlagsSet(xSerialEventHandle, EVENT_MBSLAVE_HANDLE_RECEIVED_DATA);
 }
 
+/*
+ * Create an interrupt handler for the receive character for your target processor.
+ * This function should store data to a buffer for received message thread to
+ * handle later.
+ */
 void prvvUARTRxReceiveCharISR(CHAR data)
 {
     rx_buff[put_index++] = data;
 }
 
+/*
+ * A thread to handle the received message.
+ * This thread is wait until a received message flag is set, then it will call
+ * pxMBFrameCBByteReceived() until all characters in the receive buffer is handled.
+ */
 static void handleReceivedDataTask(void *argument)
 {
     while (1)

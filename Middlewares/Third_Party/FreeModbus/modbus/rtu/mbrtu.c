@@ -26,6 +26,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * File: $Id: mbrtu.c,v 1.18 2007/09/12 10:15:56 wolti Exp $
+ *            mbrtu.c,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> Add send multiple bytes in one call $
  */
 
 /* ----------------------- System includes ----------------------------------*/
@@ -306,7 +307,7 @@ xMBRTUTransmitFSM( void )
 			usSndBufferCount = 0;
 #else
             xMBPortSerialPutByte( ( CHAR )*pucSndBufferCur );
-            pucSndBufferCur++;  /* next byte in sendbuffer. */
+            pucSndBufferCur++;  /* next byte in send buffer. */
             usSndBufferCount--;
 #endif
         }

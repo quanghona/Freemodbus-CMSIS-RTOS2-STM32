@@ -1,5 +1,5 @@
 /*
- * FreeModbus Libary: RT-Thread Port
+ * FreeModbus Libary: CMSIS-RTOS2 Port
  * Copyright (C) 2013 Armink <armink.ztl@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * File: $Id: porttimer_m.c,v 1.60 2013/08/13 15:07:05 Armink add Master Functions$
+ *            porttimer_m.c,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> CMSIS-RTOS2 port $
  */
 
 /* ----------------------- Platform includes --------------------------------*/

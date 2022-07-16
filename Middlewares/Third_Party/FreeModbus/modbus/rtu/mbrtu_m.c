@@ -26,6 +26,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * File: $Id: mbrtu_m.c,v 1.60 2013/08/17 11:42:56 Armink Add Master Functions $
+ *            mbrtu_m.c,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> CMSIS-RTOS2 port$
  */
 
 /* ----------------------- System includes ----------------------------------*/
@@ -322,7 +323,7 @@ xMBMasterRTUTransmitFSM( void )
 			usMasterSndBufferCount = 0;
 #else
             xMBMasterPortSerialPutByte( ( CHAR )*pucMasterSndBufferCur );
-            pucMasterSndBufferCur++;  /* next byte in sendbuffer. */
+            pucMasterSndBufferCur++;  /* next byte in send buffer. */
             usMasterSndBufferCount--;
 #endif
         }

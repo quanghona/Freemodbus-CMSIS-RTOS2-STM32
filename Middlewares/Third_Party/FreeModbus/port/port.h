@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * File: $Id: port.h ,v 1.60 2013/08/13 15:07:05 Armink add Master Functions $
+ *            port.h ,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> CMSIS-RTOS2 port $
  */
 
 #ifndef _PORT_H

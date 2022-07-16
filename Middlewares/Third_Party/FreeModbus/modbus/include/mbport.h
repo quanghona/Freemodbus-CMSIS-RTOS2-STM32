@@ -27,6 +27,7 @@
  *
  * File: $Id: mbport.h,v 1.17 2006/12/07 22:10:34 wolti Exp $
  *            mbport.h,v 1.60 2013/08/17 11:42:56 Armink Add Master Functions  $
+ *            mbport.h,v 1.60 2022/07/17          quanghona <lyhonquang@gmail.com> Add send multiple bytes in one call  $
  */
 
 #ifndef _MB_PORT_H

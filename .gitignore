@@ -56,3 +56,4 @@ build/
 STM32Make.make
 STM32-for-VSCode.config.yaml
 openocd.cfg
+.mxproject
